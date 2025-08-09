@@ -1,0 +1,22 @@
+# Build artifacts
+.zig-cache/
+zig-out/
+
+# Generated executables
+*.exe
+*.exe.*
+*.out
+*.o
+*.obj
+
+# Backup files and temporary files
+*~
+*.tmp
+*.temp
+
+# IDE/editor files (optional)
+.vscode/
+.idea/
+*.swp
+*.swo
+
