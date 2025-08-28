@@ -1,20 +1,13 @@
 const std = @import("std");
-const z = @import("zserver");
+const server = @import("server.zig");
 
 pub fn main() !void {
-    var app = try z.App.init(.{
-        .port = 8080,
-    });
+    var gpa = std.heap.GeneralPurposeAllocator(.{}){};
+    defer _ = gpa.deinit();
+    const allocator = gpa.allocator();
 
-    try app.routes(&[_]z.Route{
-        .{
-            .method = .get,
-            .path = "/",
-            .handlerFn = indexHandler,
-        },
-    });
-}
-
-pub fn indexHandler(ctx: z.Ctx) !void {
-    _ = ctx;
+    var zever = try server.Server.init(allocator, .{ .port = 8080 });
+    defer zever.deinit();
+    
+    try zever.listen();
 }
